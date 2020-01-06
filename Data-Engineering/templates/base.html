@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> AirBnB Price Predictor - {{ title }}</title>
+	</head>
+
+	<body>
+		<h1> AirBnB Price Predictor </h1>
+
+	{% block content %}
+	<form action ="/predictions" method="post">
+			<div>
+				<input class="text" name="rooms" placeholder="Number of Rooms">
+				<input type="submit" value="Add Rooms">
+			</div>
+	</form>
+	<form action ="/predictions" method="post">
+			<div>
+				<input class="text" name="bathrooms" placeholder="Number of Bathrooms">
+				<input type="submit" value="Add Bathrooms">
+			</div>
+	</form>
+	<form action ="/predictions" method="post">
+			<div>
+				<input class="text" name="accommodations" placeholder="Number of People">
+				<input type="submit" value="Add People">
+			</div>
+	</form>
+	{% endblock %}
+	</body>
+
+</html>
