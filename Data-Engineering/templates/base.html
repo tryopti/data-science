@@ -1,13 +1,14 @@
+<!-- Not Needed  -->
 <!DOCTYPE html>
 <html>
 	<head>
-		<title> AirBnB Price Predictor - {{ title }}</title>
+		<title> AirBnB Price Predictor - Home</title>
 	</head>
 
 	<body>
 		<h1> AirBnB Price Predictor </h1>
 
-	{% block content %}
+
 	<form action ="/predictions" method="post">
 			<div>
 				<input class="text" name="rooms" placeholder="Number of Rooms">
@@ -26,7 +27,7 @@
 				<input type="submit" value="Add People">
 			</div>
 	</form>
-	{% endblock %}
+
 	</body>
 
 </html>

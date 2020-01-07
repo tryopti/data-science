@@ -4,7 +4,6 @@ from flask import Flask, jsonify, request
 import pandas as pd
 import pickle
 
-from .predict import get_prediction
 
 
 def create_app():
@@ -13,7 +12,17 @@ def create_app():
 
     @APP.route('/')
     def root():
-        prediction = get_prediction()
+        prediction = get_predictions()
         return jsonify(prediction)
 
+    def get_predictions():
+        # receive input
+        listings = request.get_json(force=True)
+
+        # get data from json:
+        ## column = listings['column']
+
+        # dictionary to format output for json:
+        
+        # model for predictions
 return APP
