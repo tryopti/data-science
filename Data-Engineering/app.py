@@ -5,24 +5,31 @@ import pandas as pd
 import pickle
 
 
+APP = Flask(__name__)
 
-def create_app():
-    APP = Flask(__name__)
+# load model w/pickle
 
 
-    @APP.route('/')
-    def root():
-        prediction = get_predictions()
-        return jsonify(prediction)
-
-    def get_predictions():
-        # receive input
+@APP.route('/')
+def get_predictions():
+        # get data
         listings = request.get_json(force=True)
 
-        # get data from json:
-        ## column = listings['column']
+        # convert data into dataframe
 
-        # dictionary to format output for json:
-        
+        # column = listings['column'] for each column
+
+        # dictionary to format output for json
+
+        # predictions
+
         # model for predictions
-return APP
+
+        # send back to browser
+        output = {'results': int(result[0])}
+
+        # return data
+        return jsonify(results=output)
+
+if __name__ == '__main__':
+    APP.run()
