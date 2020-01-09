@@ -1,49 +1,65 @@
 """Get started with flask app"""
-
 from flask import Flask, jsonify, request
+import numpy as np
 import pandas as pd
 import pickle
+from joblib import load
+import xgboost as xgb
 
+# local import:
+from api_function import get_lemmas
 
+# create app:
 APP = Flask(__name__)
 
-# load model w/pickle
+# load pipeline pickle:
+pipeline1 = load('./test2_regression.pkl')
 
 
-@APP.route('/')
-def get_predictions(bedrooms, bathrooms, square_feet, longitude, latitude,
-                    description, accommodates):
-        # get data
-        listings = request.get_json(force=True)
+@APP.route('/', methods=['POST'])
+def prediction():
+    """
+    Receives data in JSON format, creates dataframe with data,
+    runs through predictive model, returns predicted price as JSON object.
+    """
 
-        # column = listings['column'] for each column
-        # MAY NEED TO CHANGE COLUMNS
-        bedrooms = listings['bedrooms']
-        bathrooms = listings['bathrooms']
-        square_feet = listings['square_feet']
-        longitude = listings['longitude']
-        latitude = listings['latitude']
-        description = listings['description']
-        accommodates = listings['accommodates']
+    # Receive data:
+    listings = request.get_json(force=True)
 
-        # dictionary to format output for json
-        features = {'bedrooms':bedrooms, 'bathrooms': bathrooms,
-                    'square_feet':square_feet, 'longitude': longitude,
-                    'latitude': latitude, 'description': description,
-                    'accommodates': accommodates}
+    # Features used in predictive model:
+    accommodates = listings["accommodates"]
+    bathrooms = listings["bathrooms"]
+    bedrooms = listings["bedrooms"]
+    guests_included = ["guests_included"]
+    size = ["size"]
+    room_type = listings["room_type"]
+    bed_type = listings["bed_type"]
+    minimum_nights = listings["minimum_nights"]
+    instant_bookable = listings["instant_bookable"]
+    cancellation_policy = listings["cancellation_policy"]
+    bag_of_words = listings["bag_of_words"]
 
-        # convert data into dataframe
-        df = pd.DataFrame(listings)
 
-        # predictions
+    features = {'accommodates': accommodates,
+                'bathrooms': bathrooms,
+                'bedrooms': bedrooms,
+                'guests_included': guests_included,
+                'size': size,
+                'room_type': room_type,
+                'bed_type': bed_type,
+                'minimum_nights': minimum_nights,
+                'instant_bookable': instant_bookable,
+                'cancellation_policy': cancellation_policy,
+                'bag_of_words': bag_of_words}
 
-        # model for predictions
 
-        # send back to browser
-        output = {'results': int(result[0])} # not sure about this
+    # Convert data into DataFrame:
+    df = pd.DataFrame(listings, index=[1])
+    df.bag_of_words = get_lemmas(df.bag_of_words.iloc[0])
 
-        # return data
-        return jsonify(results=output)
+    # Make prediction for optimal price:
+    prediction = pipeline1.predict(df.iloc[0:1])
+    output = {'results': int(prediction[0])}
 
-if __name__ == '__main__':
-    APP.run()
+    # Return JSON object:
+    return jsonify(results=output)
