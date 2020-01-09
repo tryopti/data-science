@@ -14,14 +14,13 @@ def get_lemmas(text):
 
     doc = nlp(text)
 
-    # Something goes here :P
+
     for token in doc:
-        #if ((token.is_stop == False) and (token.is_punct == False)) and (token.pos_!= 'PRON'):
         lemmas.append(token.lemma_)
 
     lemma_summary = []
 
-    #for set_of_lemmas in lemmas.values:
+
     working_set = ""
     for lemma in lemmas:
         working_set += lemma + ' '

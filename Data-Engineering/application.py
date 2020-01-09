@@ -13,7 +13,7 @@ load_dotenv()
 
 # create app:
 def create_app():
-    application = APP = Flask(__name__)
+    APP = Flask(__name__)
 
     # load pipeline pickle:
     pipeline1 = load('./test2_regression.pkl')
@@ -33,7 +33,6 @@ def create_app():
         accommodates = listings["accommodates"]
         bathrooms = listings["bathrooms"]
         bedrooms = listings["bedrooms"]
-        guests_included = ["guests_included"]
         size = ["size"]
         room_type = listings["room_type"]
         bed_type = listings["bed_type"]
@@ -46,7 +45,6 @@ def create_app():
         features = {'accommodates': accommodates,
         'bathrooms': bathrooms,
         'bedrooms': bedrooms,
-        'guests_included': guests_included,
         'size': size,
         'room_type': room_type,
         'bed_type': bed_type,
