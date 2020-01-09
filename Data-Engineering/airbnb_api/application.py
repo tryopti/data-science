@@ -16,7 +16,7 @@ def create_app():
     APP = Flask(__name__)
 
     # load pipeline pickle:
-    pipeline1 = load('./test2_regression.pkl')
+    pipeline1 = load('airbnb_api/test2_regression.pkl')
 
 
     @APP.route('/', methods=['POST'])
