@@ -1,4 +1,4 @@
-"""Get started with flask app"""
+"""Flask App for Predicting Optimal AirBnB prices in Berlin"""
 from flask import Flask, jsonify, request
 import numpy as np
 import pandas as pd
@@ -62,4 +62,7 @@ def prediction():
     output = {'results': int(prediction[0])}
 
     # Return JSON object:
-    return jsonify(results=output)
+    return jsonify(output)
+
+if __name__ == '__main__':
+    app.run
