@@ -1,0 +1,21 @@
+import pandas as pd
+import zipfile
+import amenity_count as ac
+
+
+zf = zipfile.ZipFile('./datasets/berlin-airbnb-data.zip')
+file_names = zf.namelist()
+
+calendar_summary = pd.read_csv(zf.open(file_names[0]))
+listings = pd.read_csv(zf.open(file_names[1]))
+listings_summary = pd.read_csv(zf.open(file_names[2]))
+neighbourhoods = pd.read_csv(zf.open(file_names[3]))
+reviews = pd.read_csv(zf.open(file_names[4]))
+reviews_summary = pd.read_csv(zf.open(file_names[5]))
+
+amenity_string = listings_summary['amenities']
+
+# Calls  dict_length function to count words and provide an integer value.
+dict_length(amenity_string)
+# Replaced in .zip file. Checked just to make sure. Matches ID. Any NaNs converted to 0.
+listings_summary['amenity_count'] = listings_summary['amenities']
