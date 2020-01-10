@@ -3,7 +3,7 @@ from spacy.tokenizer import Tokenizer
 
 def get_lemmas(text):
 
-    nlp = spacy.load("en_core_web_sm-2.2.5", path="airbinb_api/")
+    nlp = spacy.load("en_core_web_sm-2.2.5")
 
     tokenizer = Tokenizer(nlp.vocab)
 
