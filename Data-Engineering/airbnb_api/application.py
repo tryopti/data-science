@@ -58,7 +58,7 @@ def create_app():
         }
 
         # Convert data into DataFrame:
-        df = pd.DataFrame(listings, index=[1])
+        df = pd.DataFrame(features, index=[1])
         # Uses NLP function to increase scores based on description given:
         df.bag_of_words = get_lemmas(df.bag_of_words.iloc[0])
 
